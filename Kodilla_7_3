@@ -56,3 +56,4 @@ bc_1 = business_contact(name = private_dict[0]["name"], surname = private_dict[0
 
 print(bc_1)
 print(bc_1.label_length)
+
