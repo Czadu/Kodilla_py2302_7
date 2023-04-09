@@ -48,15 +48,15 @@ for series_dict in series_collection:
 def search(movies, title):
    for i in movies:
       if title in i.title:
-         print ("Selected movie is in our collection")
-         return
-      print ("There is no such thing")
-      return
+         isin = "Selected movie is in our collection"
+         return isin
+      notin =  "There is no such thing"
+      return notin
       
 def get_movies(movie):
    only_movies = []
    for item in movies:
-      if isinstance(item, movie):
+      if type(item) == movie:
          only_movies.append(item)
    return only_movies
 
@@ -80,7 +80,7 @@ def generate_views(movies):
     selected_movie = random.choice(movies)
     views_increment = random.randint(1, 100)
     selected_movie.play(views_increment)
-    return selected_movie.__str__()
+    return 
 
 def generate_views_10(movies):
    for i in range (10):
@@ -106,3 +106,4 @@ if __name__ == "__main__":
    for movie in top_movies:
       print(f'Title: {movie.title}\nViews: {movie.views}\n')   
    print(search(movies, "Kiler"))
+
