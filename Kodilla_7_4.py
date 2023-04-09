@@ -63,7 +63,7 @@ def get_movies(movie):
 def get_series(series):
    only_series = []
    for item in movies:
-      if isinstance(item, series):
+      if type(item) == series:
          only_series.append(item)
    return only_series
 
