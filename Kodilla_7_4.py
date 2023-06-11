@@ -36,44 +36,29 @@ class Series(Movie):
       return f"\nTitle: {self.title} \nYear: {self.year} \nGenre: {self.genre}\nS0{self.season} E0{self.episode} \nViews: {self.views}\n"
 
 
-movies = []
-
-for movie_dict in movie_collection:
-   movie_obj = Movie(title=movie_dict['Title'], year=movie_dict['Year'], genre=movie_dict['Genre'], views=0)
-   movies.append(movie_obj)
-for series_dict in series_collection:
-   series_obj = Series(title=series_dict['Title'], year=series_dict['Year'], genre=series_dict['Genre'], views=0, season = f'{random.randrange(4)}', episode = f'{random.randrange(7)}')
-   movies.append(series_obj)
 
 def search(movies, title):
-   for i in movies:
-      if title in i.title:
-         isin = "Selected movie is in our collection"
-         return isin
-      notin =  "There is no such thing"
-      return notin
+    for i in movies:
+        if title in i.title:
+            return i
+    return None
+
       
-def get_movies(movie):
-   only_movies = []
-   for item in movies:
-      if type(item) == movie:
-         only_movies.append(item)
-   return only_movies
+def get_movies(collection):
+    only_movies = []
+    for item in collection:
+        if type(item) == Movie:
+            only_movies.append(item)
+    return only_movies
 
-def get_series(series):
-   only_series = []
-   for item in movies:
-      if type(item) == series:
-         only_series.append(item)
-   return only_series
 
-only_movies = get_series(Series)
-only_movies.sort(key=lambda x: x.title)
+def get_series(collection):
+    only_series = []
+    for item in collection:
+        if type(item) == Series:
+            only_series.append(item)
+    return only_series
 
-only_series = get_movies(Movie)
-only_series.sort(key=lambda x: x.title)
-
-by_views = sorted(movies, key = lambda y: y.views)
 
 
 def generate_views(movies):
@@ -91,13 +76,32 @@ def top_titles(n):
     top_n = sorted_movies[:n]
     return top_n
 
-random_movie = generate_views(movies)
-top_movies = top_titles(3)
 
-for content in movies:
-   content.play(random.randrange(100))
 
 if __name__ == "__main__":
+
+
+   movies = []
+
+   for movie_dict in movie_collection:
+      movie_obj = Movie(title=movie_dict['Title'], year=movie_dict['Year'], genre=movie_dict['Genre'], views=0)
+      movies.append(movie_obj)
+   for series_dict in series_collection:
+      series_obj = Series(title=series_dict['Title'], year=series_dict['Year'], genre=series_dict['Genre'], views=0, season = f'{random.randrange(4)}', episode = f'{random.randrange(7)}')
+      movies.append(series_obj)
+   
+   only_movies = get_movies(movies)
+   only_movies.sort(key=lambda x: x.title)
+   only_series = get_series(movies)
+   only_series.sort(key=lambda x: x.title)
+   by_views = sorted(movies, key = lambda y: y.views)
+
+   random_movie = generate_views(movies)
+   top_movies = top_titles(3)
+   for content in movies:
+      content.play(random.randrange(100))
+
+
    print('Film Collection:')
    for content in by_views:
       print (content.__str__())
